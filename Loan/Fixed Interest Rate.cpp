@@ -25,12 +25,12 @@ int main()
 	string loanAmntMsg = "Enter initial loan amount: ";
 
 	
-	//*******************************************************************
-	// Inputs:
-  //   - intRate
-  //   - loanLife
-  //   - loanAmnt
-	//*****************************************************************
+//*******************************************************************
+// Inputs:
+//   - intRate
+//   - loanLife
+//   - loanAmnt
+//*****************************************************************
 	for (int i = 1; i <= 5; i++)
  {
  cout << "Enter periodic interest rate in decimal: ";
