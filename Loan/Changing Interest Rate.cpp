@@ -1,7 +1,7 @@
 
 //** C++ For Quantitative Finance
 //** Loan Calculation (Changing Interest Rate)
-
+//** Author: David Li 
 
 #include <iostream>
 #include <cstring>
