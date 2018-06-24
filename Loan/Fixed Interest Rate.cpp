@@ -1,6 +1,6 @@
 //** C++ For Quantitative Finance
 //** Loan Calculation (Fixed Interest Rate)
-
+//** Author: David Li 
 
 #include <iostream>
 #include <cstring>
