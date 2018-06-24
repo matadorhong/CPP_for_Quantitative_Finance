@@ -1,6 +1,6 @@
 //** C++ For Quantitative Finance
 //** Loan Calculation (Constant Annuities)
-
+//** Author: David Li 
 
 #include <iostream>
 #include <cstring>
