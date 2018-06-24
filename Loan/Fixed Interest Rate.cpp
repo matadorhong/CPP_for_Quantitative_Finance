@@ -1,6 +1,6 @@
-//** C++ For Quantitative Finance
-//** Loan Calculation (Fixed Interest Rate)
-//** Author: David Li 
+/* C++ For Quantitative Finance            */
+/* Loan Calculation (Fixed Interest Rate)  */
+/* Author: David Li                        */
 
 #include <iostream>
 #include <cstring>
@@ -23,96 +23,65 @@ int main()
 	string intRateMsg = "Enter periodic interest rate in decimal: ";
 	string loanLifeMsg = "Enter loan life in periods: ";
 	string loanAmntMsg = "Enter initial loan amount: ";
-
 	
-//*******************************************************************
-// Inputs:
-//   - intRate
-//   - loanLife
-//   - loanAmnt
-//*****************************************************************
-	for (int i = 1; i <= 5; i++)
- {
- cout << "Enter periodic interest rate in decimal: ";
- cin >> intRate;
+/*****************************************************************/
+/* Inputs:                                                       */
+/*   - intRate                                                   */
+/*   - loanLife                                                  */
+/*   - loanAmnt                                                  */
+/*****************************************************************/
+for (int i = 1; i <= 5; i++) {
+     cout << "Enter periodic interest rate in decimal: ";
+     cin >> intRate;
 
- if ((intRate < 0.0) || (intRate > 0.15))
- {
- if (i == 5)
- {
- cout << "\nThis program is being terminated\n";
- system("PAUSE");
- return 0;
- }
-	
- else
- {
- cout << "You must enter a value between ";
- cout << "0.0 and 0.15. Please try again." << endl;
- }
+ if ((intRate < 0.0) || (intRate > 0.15)) {
+   if (i == 5) {
+      cout << "\nThis program is being terminated\n";
+      system("PAUSE");
+      return 0; } else {
+      cout << "You must enter a value between ";
+      cout << "0.0 and 0.15. Please try again." << endl; } }
+ else { break; } }
 
- }
- else { break; }
-
-	}
-
- for (int i = 1; i <= 5; i++)
- {
- cout << "Enter loan life in periods: ";
- cin >> loanLife;
+ for (int i = 1; i <= 5; i++) {
+      cout << "Enter loan life in periods: ";
+      cin >> loanLife;
  
- if ((loanLife < 0) || (loanLife > 50))
- {
- if (i == 5)
- {
- cout << "\nThis program is being terminated\n";
- system("PAUSE");
- return 0;
- }
- else
- {
- cout << "You must enter a value between ";
- cout << "0 and 50. Please try again." << endl;
- }
- }
- else { break; }
- }
+    if ((loanLife < 0) || (loanLife > 50)) {
+      if (i == 5) {
+          cout << "\nThis program is being terminated\n";
+          system("PAUSE");
+          return 0;} else {
+          cout << "You must enter a value between ";
+          cout << "0 and 50. Please try again." << endl; } }
+    else { break; } }
 
- for (int i = 1; i <= 5; i++)
- {
- cout << "Enter initial loan amount: ";
- cin >> loanAmnt;
+ for (int i = 1; i <= 5; i++) {
+      cout << "Enter initial loan amount: ";
+      cin >> loanAmnt;
 
- if ((loanAmnt < 0.0) || (loanAmnt > 1000000.0))
- {
- if (i == 5)
- {
- cout << "\nThis program is being terminated\n";
- system("PAUSE");
- return 0;
- }
- else
- {
- cout << "You must enter a value between ";
- cout << "0.0 and 1000000.0. Please try again." << endl;
- }
- }
- else break;
- }
+      if ((loanAmnt < 0.0) || (loanAmnt > 1000000.0)) {
+        if (i == 5) {
+            cout << "\nThis program is being terminated\n";
+            system("PAUSE");
+            return 0; } else {
+     cout << "You must enter a value between ";
+     cout << "0.0 and 1000000.0. Please try again." << endl; } }
+ else break; }
 	
-    tolerance = loanAmnt / 100000.;
-	itStage = 1; // used to distinguish stage 1 from stage 2
+ tolerance = loanAmnt / 100000.;
+	
+ itStage = 1; // used to distinguish stage 1 from stage 2
 
-	stepSize = loanAmnt / 100.; // increment to use in each iteration
-	for (i = 0; i<maxIter; i++) for (j = 0; j<5; j++) bT[i][j] = 0.;
-	prdPmnt = loanAmnt * intRate; //initial guess for payment
-	fBalH = 1000.;
+ stepSize = loanAmnt / 100.; // increment to use in each iteration
+ for (i = 0; i<maxIter; i++) for (j = 0; j<5; j++) bT[i][j] = 0.;
+ prdPmnt = loanAmnt * intRate; //initial guess for payment
+ fBalH = 1000.;
 
-	fBalL = remainBal(loanLife, loanAmnt, intRate, prdPmnt);
+ fBalL = remainBal(loanLife, loanAmnt, intRate, prdPmnt);
 
-	for (i = 1; fabs(fBalH) > tolerance; i++)
-	{
-		fBalH = remainBal(loanLife, loanAmnt, intRate, prdPmnt + stepSize);
+ for (i = 1; fabs(fBalH) > tolerance; i++) {
+      fBalH = remainBal(loanLife, loanAmnt, intRate, prdPmnt + stepSize);
 
 		bT[i - 1][0] = prdPmnt;
 		bT[i - 1][1] = stepSize;
@@ -120,35 +89,26 @@ int main()
 		bT[i - 1][3] = fBalL;
 		bT[i - 1][4] = fBalH;
 
-		if ((fBalL * fBalH) > 0)
-		{
-			prdPmnt += stepSize;
-			fBalL = fBalH;
-			if (itStage != 1) stepSize = stepSize / 2.;
-		}
-		else
-		{
-			itStage = 2;
-			stepSize = stepSize / 2.;
-		}
-		if (i > maxIter)
-		{
-			cout << "Iteration did not converge in " << maxIter;
-			cout << " passes, the maximum allowed." << endl;
-			break;
-		}
-	}
+  if ((fBalL * fBalH) > 0) {
+       prdPmnt += stepSize;
+       fBalL = fBalH;
+   if (itStage != 1) stepSize = stepSize / 2.; } else {
+       itStage = 2;
+       stepSize = stepSize / 2.; }
+     if (i > maxIter) {
+	cout << "Iteration did not converge in " << maxIter;
+	cout << " passes, the maximum allowed." << endl;
+	break;} }
 
-	//******************************************************************
-	// Print out iteration table
-	//******************************************************************
+/******************************************************************/
+/* Print out iteration table                                      */
+/******************************************************************/
 	printT(bT, i - 1);
 	cout << endl << endl;
 
-	//Wait for the user to read the output on the console
+ /* Wait for the user to read the output on the console          */
 	system("PAUSE");
-	return 0;
-}
+	return 0; }
 
 double remainBal(int life, double loan, double rate, double pmnt)
 {
