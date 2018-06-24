@@ -1,6 +1,6 @@
 //** C++ For Quantitative Finance
 //** Loan Calculation (Changing Annual Payment)
-
+//** Author: David Li 
 
 #include <iostream>
 #include <cstring>
